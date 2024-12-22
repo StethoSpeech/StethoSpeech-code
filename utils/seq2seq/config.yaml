@@ -1,0 +1,43 @@
+path:
+  root_path: "/media/newhd/Neil/fairseq/AR_aug/stethospeech/"
+  nam_hubert_path: "/media/newhd/Neil/fairseq/AR_aug/stethospeech/nam_features"
+  nam_wav_files: "/media/newhddd/SpeechDatasets/NAMs/allNAMfiles/wavs"
+  simulated_speech_hubert_path: "/media/newhd/Neil/fairseq/AR_aug/stethospeech/speech_features"
+
+preprocessing:
+  split_ratio: 0.95
+  hubert_dim: 768
+  max_seq_len: 1000
+  hubert_codes: 100
+  ctc_vocab_size: 32
+
+optimizer:
+  batch_size: 16
+  betas: [0.9, 0.98]
+  eps: 0.000000001
+  weight_decay: 0.0
+  grad_clip_thresh: 1.0
+  grad_acc_step: 1
+  warm_up_step: 4000
+  anneal_steps: [300000, 400000, 500000]
+  anneal_rate: 0.3
+
+step:
+  total_step: 60000
+  log_step: 200
+  synth_step: 200
+  val_step: 200
+  save_step: 200
+
+transformer:
+  encoder_layer: 6
+  encoder_head: 2
+  encoder_hidden: 256
+  decoder_layer: 4
+  decoder_head: 2
+  decoder_hidden: 256
+  conv_filter_size: 1024
+  conv_kernel_size: [9, 1]
+  encoder_dropout: 0.1
+  decoder_dropout: 0.1
+  max_seq_len: 1000
