@@ -13,7 +13,9 @@ Ground-truth speech simulation is straightforward. Below are the steps that requ
 
 ---
 
-### Step 1: Download vocoder checkpoint and k-means checkpoint:
+### Step 1: Download vocoder checkpoint and k-means checkpoint
+
+The code creates a folder title `pretrained_ckpt` at the root directory and downloads the checkpoints.
 
 ```bash
 python utils/download.py
@@ -52,11 +54,11 @@ export PYTHONPATH=/path/to/your/StethoSpeech-code
 python utils/seq2seq/train.py -c utils/seq2seq/config.yaml --device 0
 ```
 
-### Step 4: Perform inference on `val.txt` using a trained sequence-to-sequence model:
+### Step 4: Perform inference on the validation file using a trained sequence-to-sequence model:
 
-Inference script to predict speech HuBERT features from input NAM HuBERT features. The script produces at <root_path>/<results>
+Inference script to predict speech HuBERT features from input NAM HuBERT features. The script produces at <root_path>/<results>. <checkpoint-step> could be 14800.
 ```bash
-python utils/seq2seq/synthesize.py -c utils/seq2seq/config.yaml  --restore_step <Path-to-checkpoint> --device 0
+python utils/seq2seq/synthesize.py -c utils/seq2seq/config.yaml  --restore_step <checkpoint-step> --device 0
 ```
 
 ### Step 5: Discretize the predicted speech HuBERT features using a K-Means model:
@@ -64,15 +66,15 @@ python utils/seq2seq/synthesize.py -c utils/seq2seq/config.yaml  --restore_step 
 We relied on a unit-based vocoder to generate speech. Therefore, the following steps are needed to discretize the predicted features. 
 
 ```bash
-python utils/dump_km_label.py --km_path pretrained_ckpt/km.bin --restore_step <Path-to-checkpoint>
-python utils/parse_hubert_codes.py -c utils/seq2seq/config.yaml --restore_step <Path-to-checkpoint>
+python utils/dump_km_label.py --km_path pretrained_ckpt/km.bin --restore_step <checkpoint-step>
+python utils/parse_hubert_codes.py -c utils/seq2seq/config.yaml --restore_step <checkpoint-step>
 ```
 
 ### Step 6: Infer using LJSpeech trained vocoder on discretized speech codes:
 
 - Infer the vocoder on predictions from the seq2seq module. The converted speech is available at `generations` folder.
 ```bash
-python utils/vocoder/inference.py --checkpoint_file pretrained_ckpt -n <Path-to-checkpoint> --vc --input_code_file /media/newhd/Neil/fairseq/AR_aug/stethospeech/results/<Path-to-checkpoint>/parsed_hubert/all_samples.txt --output_dir generations
+python utils/vocoder/inference.py --checkpoint_file pretrained_ckpt -n <checkpoint-step> --vc --input_code_file /media/newhd/Neil/fairseq/AR_aug/stethospeech/results/<checkpoint-step>/parsed_hubert/all_samples.txt --output_dir generations
 ```
 
 ## Acknowledgements
