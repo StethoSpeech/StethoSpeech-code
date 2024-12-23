@@ -1,8 +1,7 @@
 # StethoSpeech-code
 
 This is the official code for the paper titled:
-**"StethoSpeech: Speech Generation Through Stethoscopic Microphone Attached To The Skin"**,  
-accepted to the *Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies Vol. 8, No. 3*.
+**"StethoSpeech: Speech Generation Through Stethoscopic Microphone Attached To The Skin"**, accepted to the *Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies Vol. 8, No. 3*.
 
 Ground-truth speech simulation is straightforward. Below are the steps that require collaboration with several repositories but are omitted here for simplicity:
 
@@ -10,7 +9,7 @@ Ground-truth speech simulation is straightforward. Below are the steps that requ
    Use input non-audible murmurs (NAMs) and their corresponding text files to train an ASR engine using [Montreal Forced Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner).
 
 2. **Generate Aligned Speech**:  
-   Use any state-of-the-art Text-to-Speech (TTS) model. Pass the text and extracted durations to the pre-trained TTS to generate aligned speech with NAMs in a voice of interest. For the paper, we relied on the [FastSpeech2 TTS model](https://github.com/ming024/FastSpeech2).
+   Use any state-of-the-art Text-to-Speech (TTS) model. Pass the text and extracted durations from the aligner to the pre-trained TTS to generate aligned speech with NAMs in a voice of interest. For the paper, we relied on the [FastSpeech2 TTS model](https://github.com/ming024/FastSpeech2).
 
 ---
 
